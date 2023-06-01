@@ -76,7 +76,25 @@ Analize ait R kodları bu bölümde başlamalıdır. Bu bölümde veri setini R'
 ```{r}
 library(tidyverse)
 library(here)
-survey <- read_csv(here("../data/survey.csv"))
+veri <- readxl::read_xlsx("C:\\Users\\pc\\Desktop\\final\\Final\\data\\veri.xlsx")
+
+veri <- veri %>% 
+  janitor::clean_names()
+
+veri <- veri %>% 
+  mutate(en_dusuk_doninim_fiyati_tl = as.numeric(en_dusuk_doninim_fiyati_tl),
+         en_yuksek_donanim_fiyati_tl = as.numeric(en_yuksek_donanim_fiyati_tl))
+
+veri <- veri %>% mutate(fiyat = (en_dusuk_doninim_fiyati_tl + en_yuksek_donanim_fiyati_tl)/2, na.rm = TRUE)
+
+veri <- veri %>% mutate(toplam_satis_adedi = ocak + subat + mart + nisan + mayis + haziran + temmuz + agustos + eylul + ekim + kasim + aralik)
+
+veri <- veri %>% 
+  select(-en_dusuk_doninim_fiyati_tl, - en_yuksek_donanim_fiyati_tl, -ocak, -subat, -mart, -nisan, -mayis, -haziran, -temmuz, -agustos, -eylul, -ekim, -kasim, -aralik)
+
+
+
+
 ```
 
 Rmd dosyasında kod bloklarının bazılarında kod seçeneklerinin düzenlendiğine dikkat edin. 
