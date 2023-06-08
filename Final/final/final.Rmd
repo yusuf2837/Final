@@ -39,7 +39,7 @@ knitr::opts_chunk$set(cache = FALSE, echo = TRUE, message = FALSE, warning = FAL
 
 # Giriş
 
-Türkiye’de satılan otomobil markaların, sahip olduğu modellerin kendi içinde veya diğer markalar arasında tercih sebeplerini markalar ve tüketiciler açısından incelediğim bu projede, Türkiye’de 202 yılı boyunca bütün otomobil firmalarının bütün modellerinin kaç adet satıldığı bilgisini içeren veriyi ilgili bir analiz firmasıyla (EBS Danışmanlık) iletişime geçerek edindim. Veri setini Türkiye’de en çok satış adedine sahip ilk 10 otomobil markasına indirgedikten sonra bu veriye çalışmamın amacına uygun gerekli değişkenleri eklemek için bu firmaların internet sitelerine girip mevzubahis araçların teknik özellikleri (motor hacmi, motor tipi, yakıt tüketimi ve emisyon verileri gibi) ve en düşük ve en yüksek donanıma sahip opsiyonlarının fiyatlarını ekleyerek en doğru sonuca varabileceğim 155 gözlem ve 30 değişken sayısına sahip veri setimi oluşturdum.
+Türkiye'de satılan otomobil markaların, sahip olduğu modellerin kendi içinde veya diğer markalar arasında tercih sebeplerini markalar ve tüketiciler açısından incelediğim bu projede, Türkiye'de 202 yılı boyunca bütün otomobil firmalarının bütün modellerinin kaç adet satıldığı bilgisini içeren veriyi ilgili bir analiz firmasıyla (EBS Danışmanlık) iletişime geçerek edindim. Veri setini Türkiye'de en çok satış adedine sahip ilk 10 otomobil markasına indirgedikten sonra bu veriye çalışmamın amacına uygun gerekli değişkenleri eklemek için bu firmaların internet sitelerine girip mevzubahis araçların teknik özellikleri (motor hacmi, motor tipi, yakıt tüketimi ve emisyon verileri gibi) ve en düşük ve en yüksek donanıma sahip opsiyonlarının fiyatlarını ekleyerek en doğru sonuca varabileceğim 155 gözlem ve 30 değişken sayısına sahip veri setimi oluşturdum.
 
 Bu çalışmada çalışmanın amacına yönelik olarak;
 
@@ -51,29 +51,36 @@ Türkiye pazarında satılan araçların yerli üretim veya ithal olmasının ar
 
 ## Çalışmanın Amacı
 
-Türkiye’de satış rakamlarına göre ilk 10 otomobil markasına ait fiyatlar, satılan otomobil sayısı, teknik özellikler baz alınarak otomobil tüketicilerinin tercihlerini etkileyen faktörleri ve bu faktörlerin bu tercihleri ne oranda etkilediğini ölçmek ve bu söz konusu otomobil marka ve modellerinin karşılaştırma ve sıralamasının yapılması amacıyla bu verilerin doğrultusunda analiz yapmak ve bulunan istatistikleri yorumlamak.
+Türkiye'de satış rakamlarına göre ilk 10 otomobil markasına ait fiyatlar, satılan otomobil sayısı, teknik özellikler baz alınarak otomobil tüketicilerinin tercihlerini etkileyen faktörleri ve bu faktörlerin bu tercihleri ne oranda etkilediğini ölçmek ve bu söz konusu otomobil marka ve modellerinin karşılaştırma ve sıralamasının yapılması amacıyla bu verilerin doğrultusunda analiz yapmak ve bulunan istatistikleri yorumlamak.
 
 Bu çalışmada göz önüne bulunduracağım ve elimdeki veriler doğrultusunda sınayacağım otomobil tüketimini etkileyen faktörler başta ekonomik sebepler olan araçların fiyatları ve bu fiyatlarla orantılı olarak belirttiğim teknik özelliklerin içinde bulunan performans ölçütleriyle marka ve modellerin fiyat performans açısından karşılaştırılması. İkinci ekonomik etmen olan ve yine kullandığım verilerde doğrudan bulunan yakıt tüketiminin değerlendirilmesi. Satılan araçların menşelerine göre veya üretimin bizim ülkemiz açısından bakıldığında yerli ürerim araçların mı yoksa ithal olarak ülkeye giren araçların mı daha çok tercih edildiğinin değerlendirilmesi. Bunların dışında tüketici tercihlerinin hangi değişkenlere bağlı olduğunu ölçmek amacıyla araç özelliklerini içeren verilerin satılan araç sayısı verileriyle oranlanarak modeller arasında bir kıyaslama yapılması amaçlanmaktadır.
 
 Çalışmanın önemi ise otomobil firmaları açısından hedefledikleri satış rakamlarına ulaşmak için uygulamaları gereken yöntemleri tespit etmek, otomobil tüketicileri açısından ise araç fiyatlarının ve özelliklerinin karşılaştırılması açısından verimli bir istatistik analizi kaynağı elde etmektir.
 
-## Literatür 
+## Literatür
 
-M Ohta ve Z Griliches'e göre "Bu kadar sınırlı kaynaklarla sonuca ulaşmak için söz konusu mal hakkında çok detaylı bilgi gerekir. Çok sayıda iyi veri ve modelin birçok olası alternatif spesifikasyonuna göre kişinin vardığı sonuçların sağlamlığının ayrıntılı bir analizini. Aşağıda, ele alıyoruz. Otomobil fiyatlarının analizinde birkaç sıkça sorulan konu, arasındaki fiyat farklılıklarını açıklamada “markaların” veya “markaların rolünün” etkili olduğu gibi farklı otomobil modellerinin, ek özellikleri, İkinci el araba fiyat analizlerinden elde edilen sonuçlar ve elde edilecek kazançlar, bir malın ilgili niteliklerini tanımlarken fiziksel (spesifikasyon) özellikler yerine performansı etkileyen diğer değişkenler..." [@ohta1976automobile] Bu çalışma marka sadakati dışında ürünlerin spesifik özelliklerini de araştırmasına dahil ederek, çalışmamızda inceleyebileceğimiz kapsamlı bir kaynak olarak göze çarpıyor.
+M Ohta ve Z Griliches'e göre "Bu kadar sınırlı kaynaklarla sonuca ulaşmak için söz konusu mal hakkında çok detaylı bilgi gerekir. Çok sayıda iyi veri ve modelin birçok olası alternatif spesifikasyonuna göre kişinin vardığı sonuçların sağlamlığının ayrıntılı bir analizini. Aşağıda, ele alıyoruz. Otomobil fiyatlarının analizinde birkaç sıkça sorulan konu, arasındaki fiyat farklılıklarını açıklamada "markaların" veya "markaların rolünün" etkili olduğu gibi farklı otomobil modellerinin, ek özellikleri, İkinci el araba fiyat analizlerinden elde edilen sonuçlar ve elde edilecek kazançlar, bir malın ilgili niteliklerini tanımlarken fiziksel (spesifikasyon) özellikler yerine performansı etkileyen diğer değişkenler..." [@ohta1976automobile] Bu çalışma marka sadakati dışında ürünlerin spesifik özelliklerini de araştırmasına dahil ederek, çalışmamızda inceleyebileceğimiz kapsamlı bir kaynak olarak göze çarpıyor.
 
-MR Busse, CR Knittel, F Zettelmeyer ise yakıt tüketimi üzerine çalışmalarıyla çalışmamdaki yakıt tüketimi gibi bizim gibi enerji ve yakıt fiyatlarının yüksek olduğu bir ülkede tüketicilerin taşıt talebini etkileyen en önemli değişkenlerden birini değerlendiriyor. Yakıt tüketiminin otomobil talebinde nasıl bir tercih sebebi olup olmadığını araştırıyor. Bizim de çalışmamızda önemli bir değişken olarak ele alacağımız yakıt tüketimi noktasında çalışmamıza büyük fayda sunacağını düşünüyorum. "ABD'de 1999'da 1 dolara yakın olan benzin fiyatlarının 2008'de zirve yaparak 4 dolara yükselmesi, tüketiciler için otomobil kullanmanın maliyetini çok fazla arttırması sebebiyle tüketiciler, satın aldıkları otomobilleri değiştirerek benzin fiyatındaki değişikliklere uyum sağladılar. Bu etkileri hem yeni hem de kullanılmış araba pazarlarında araştırdık. Bunun sonucunda benzin fiyatındaki 1 dolarlık artışın, yakıtı en çok ve en az verimli kullanan çeyreklerin pazar paylarını değiştirdiğini gözlemledik yakıt tüketiminin otomobil kullanımında +%20 veya -%24 yeni araba sayısı gibi bir etkiye sahip olduğunu gözlemledik. Buna karşılık, aynı benzin fiyatındaki artış değişimi, ikinci el arabaların yakıt tasarrufu en yüksek ve en az olan çeyreklerinin pazar payları sırasıyla yalnızca %3 ve -%7 oldu. Benzin fiyatlarındaki değişikliklerin, yakıtı en verimli şekilde kullanan otomobillerin nispi fiyatlar düzeyini de değiştirdiğini bulduk. Çeyreklik ve yakıt açısından en az verimli olan çeyrekteki arabalar: sıfır arabalar için, yakıt tasarruflu için nispi fiyat artışı, benzin fiyatlarındaki 1 dolarlık artış için arabalar 363 dolar; ikinci el arabalar için 2839 dolar. Dolayısıyla dengenin ayarlanması yakıt tüketiminden kanyaklı araç kullanım maliyetindeki değişikliklere yanıt olarak pazar payları ve fiyatlar, sıfır ve kullanılan pazarlar Yeni otomobil pazarında, düzeltme öncelikle pazar paylarında olurken, ikinci el otomobil pazarında ikinci el araba pazarı ayarlaması öncelikle yakıt fiyatlarıyla yakından ilişkilidir. Benzinin maliyetindeki farkın sıfır ve ikinci el otomobil pazarlarını etkilemesi, arz özelliklerindeki spesifik diğer araç özelliklerinde farklılıklarıyla açıklanabilir."[@busse2009pain]
-MR Busse, CR Knittel, F Zettelmeyer'in çalışmalarının sonucu olan bu araştırma bizimde tüketici talebini ele alırken yakıt tüketimi değişkenimizin etkisinin incelememizde bizlere büyük bir katkı sağlayacağını düşündüğüm bir çalışma. 
+MR Busse, CR Knittel, F Zettelmeyer ise yakıt tüketimi üzerine çalışmalarıyla çalışmamdaki yakıt tüketimi gibi bizim gibi enerji ve yakıt fiyatlarının yüksek olduğu bir ülkede tüketicilerin taşıt talebini etkileyen en önemli değişkenlerden birini değerlendiriyor. Yakıt tüketiminin otomobil talebinde nasıl bir tercih sebebi olup olmadığını araştırıyor. Bizim de çalışmamızda önemli bir değişken olarak ele alacağımız yakıt tüketimi noktasında çalışmamıza büyük fayda sunacağını düşünüyorum. "ABD'de 1999'da 1 dolara yakın olan benzin fiyatlarının 2008'de zirve yaparak 4 dolara yükselmesi, tüketiciler için otomobil kullanmanın maliyetini çok fazla arttırması sebebiyle tüketiciler, satın aldıkları otomobilleri değiştirerek benzin fiyatındaki değişikliklere uyum sağladılar. Bu etkileri hem yeni hem de kullanılmış araba pazarlarında araştırdık. Bunun sonucunda benzin fiyatındaki 1 dolarlık artışın, yakıtı en çok ve en az verimli kullanan çeyreklerin pazar paylarını değiştirdiğini gözlemledik yakıt tüketiminin otomobil kullanımında +%20 veya -%24 yeni araba sayısı gibi bir etkiye sahip olduğunu gözlemledik. Buna karşılık, aynı benzin fiyatındaki artış değişimi, ikinci el arabaların yakıt tasarrufu en yüksek ve en az olan çeyreklerinin pazar payları sırasıyla yalnızca %3 ve -%7 oldu. Benzin fiyatlarındaki değişikliklerin, yakıtı en verimli şekilde kullanan otomobillerin nispi fiyatlar düzeyini de değiştirdiğini bulduk. Çeyreklik ve yakıt açısından en az verimli olan çeyrekteki arabalar: sıfır arabalar için, yakıt tasarruflu için nispi fiyat artışı, benzin fiyatlarındaki 1 dolarlık artış için arabalar 363 dolar; ikinci el arabalar için 2839 dolar. Dolayısıyla dengenin ayarlanması yakıt tüketiminden kanyaklı araç kullanım maliyetindeki değişikliklere yanıt olarak pazar payları ve fiyatlar, sıfır ve kullanılan pazarlar Yeni otomobil pazarında, düzeltme öncelikle pazar paylarında olurken, ikinci el otomobil pazarında ikinci el araba pazarı ayarlaması öncelikle yakıt fiyatlarıyla yakından ilişkilidir. Benzinin maliyetindeki farkın sıfır ve ikinci el otomobil pazarlarını etkilemesi, arz özelliklerindeki spesifik diğer araç özelliklerinde farklılıklarıyla açıklanabilir."[@busse2009pain] MR Busse, CR Knittel, F Zettelmeyer'in çalışmalarının sonucu olan bu araştırma bizimde tüketici talebini ele alırken yakıt tüketimi değişkenimizin etkisinin incelememizde bizlere büyük bir katkı sağlayacağını düşündüğüm bir çalışma.
 
-İşbilir ise 2011 yılında ülkemizdeki verileri ele alarak hazırladığı çalışmasında yakıt tipi silindir hacmi gibi değişkenlerin frekans değerleri ile vardığı sonuçlar şu şekilde "2011 yılı içerisinde toplam 592.396 araç satışı gerçekleşmiştir. En fazla araç satışı 173.806 adet ile 1500cc – 1599cc silindir hacminde görülmekte, %29.3 ile en büyük payı almaktadır. İkinci sırayı 1300cc – 1399cc silindir hacimli araçlar takip etmektedir, buna göre satış adeti 128.512 iken genele oranı %21.7 ‘dir. En düşük araç satışı ise 13.131 adet ile 2000cc ve üzeri silindir hacminde görülmektedir. Bunun oranı ise %2.2‟dir." [@icsbilir2014turkiye] bu çalışmasıyla incelmede bulunacağım değişkenlerin yorumlanması noktasında çalışmamıza büyük ölçüde ışık tutacaktır.
+İşbilir ise 2011 yılında ülkemizdeki verileri ele alarak hazırladığı çalışmasında yakıt tipi silindir hacmi gibi değişkenlerin frekans değerleri ile vardığı sonuçlar şu şekilde "2011 yılı içerisinde toplam 592.396 araç satışı gerçekleşmiştir. En fazla araç satışı 173.806 adet ile 1500cc -- 1599cc silindir hacminde görülmekte, %29.3 ile en büyük payı almaktadır. İkinci sırayı 1300cc -- 1399cc silindir hacimli araçlar takip etmektedir, buna göre satış adeti 128.512 iken genele oranı %21.7 'dir. En düşük araç satışı ise 13.131 adet ile 2000cc ve üzeri silindir hacminde görülmektedir. Bunun oranı ise %2.2‟dir." [@icsbilir2014turkiye] bu çalışmasıyla incelmede bulunacağım değişkenlerin yorumlanması noktasında çalışmamıza büyük ölçüde ışık tutacaktır.
 
-N YILMAZ, İ KARAKADILAR ise yine Türkiye’de otomobil pazarı üzerine yaptığı çalışmalarıyla "Türk otomobil pazarında en çok satılan yerli üretim araba modelleriyle ithal araçlar arasında tüketiciye sunulan teknik özellikler ile tüketiciye yüklenen külfet açısından bir verimlilik farkının bulunup bulunmadığını ortaya koymak." [@yilmaz2010turk] amacıyla yaptıkları çalışmalarıyla incelememize daha geniş bir perspektifle bakmamızı sağlayacak ek bir kaynak oluşturmakta.
+N YILMAZ, İ KARAKADILAR ise yine Türkiye'de otomobil pazarı üzerine yaptığı çalışmalarıyla "Türk otomobil pazarında en çok satılan yerli üretim araba modelleriyle ithal araçlar arasında tüketiciye sunulan teknik özellikler ile tüketiciye yüklenen külfet açısından bir verimlilik farkının bulunup bulunmadığını ortaya koymak." [@yilmaz2010turk] amacıyla yaptıkları çalışmalarıyla incelememize daha geniş bir perspektifle bakmamızı sağlayacak ek bir kaynak oluşturmakta.
 
-# Veri 
-Bu bölümde çalışmanızda kullandığınız veri setinin kaynağını, ham veri üzerinde herhangi bir işlem yaptıysanız bu işlemleri ve veri seti ile ilgili özet istatistikleri tartışınız. Bu bölümde tüm değişkenlere ait özet istatistikleri (ortalama, standart sapma, minimum, maksimum, vb. değerleri) içeren bir tablo (Tablo \ref{tab:ozet}) olması zorunludur. Tablolarınıza gerekli göndermeleri bir önceki cümlede gösterildiği gibi yapınız. [@perkins:1991]
+# Veri
 
-Analize ait R kodları bu bölümde başlamalıdır. Bu bölümde veri setini R'a aktaran ve özet istatistikleri üreten kodlar yer almalıdır.
+Çalışmamda kullanmış olduğum veri setinin ham halini, otomotiv sektörüyle ilgili kapsamlı çalışmaları olan ve bu çalışmalarını kapalı devre üyelik sistemiyle çalışan veri alanlarında sunan, EBS Danışmanlık (EBS Analiz Otomotiv Yönetim Danışmanlığı San. ve Tic. A.Ş. ) şirketine mail yoluyla ulaşıp yapmak istediğim projeden bahsedip rica etmem ve onların da bu ricamı kırmayarak talep etmiş olduğum ve açık kaynaklardan edinemediğim bilgilerin yer aldığı bir dökümü benimle paylaşmaları vasıtasıyla edinmiş oldum. 
 
-```{r}
+Daha sonra bu edindiğim Türkiye’de resmi olarak satışta olan tüm otomobil markalarının, 2022 yılında satmış oldukları tüm sıfır otomobillerin modeller bazında sayılarının bulunduğu veriyi, satılan otomobil sayısı en fazla olan ilk 10 markaya indirgeyip, gerek bu markaların kendi resmi web siteleri, gerekse bu otomobillerin satış tanıtım ve karşılaştırmasının yapıldığı epey.com gibi sitelerden edindiğim teknik özellikleri (motor hacmi, yakıt tüketimi, emisyon değerleri vb.) ve fiyatlarını (en yüksek ve en düşük donanım fiyatları) verilerle geliştirip üzerinde çalışacağım ve doğru çıkarımlar elde edebileceğim bir veri seti haline getirdim. 
+
+Daha sonra bu veriyi R Studio uygulaması üzerinden projeyi gerçekleştireceğim dosyada çalıştırıp gerekli olan veri düzenleme işlemlerini yaptım. Bu işlemler; sütun isimlerini düzenleme, veride bulunan en düşük ve en yüksek donanım fiyatı sütunlarında bulunan verilerin ortalamasının alınarak fiyat başlığı altında bir sütunda belirtilmesi, aylar bazında bulunan satılan otomobil adedi verisinin toplam satış adedi başlığı altında birleştirilmesi ve diğer kullanımına gerek kalmayan sütunların veriden kaldırılması şeklindedir.
+
+Akabinde verilerin özet istatistiklerini (ortalama, standart sapma, minimum, maksimum, vb. değerleri) oluşturup ilgili tabloda (Tablo \ref{tab:ozet}) sundum. Hesapladığım bu özet istatistiklerden, fiyat, motor, hacmi yakıt tüketimi gibi verilerin en yüksek, en düşük, ortalama ve standart sapma değerlerine ulaşılabilmektedir. Bu istatistiklerden Türkiye’de 2022 de satılan sıfır otomobillerden en düşük fiyatlı olanı 387.900 TL ye, en pahalısı 5.299.750 TL ye satılmış olduğu, satılan otomobillerinin ortalama olarak 1609 cc motor hacmine sahip olduğu, yakıt tüketiminin medyanın 5.1 lt olduğu ve toplam satış adedinin standart sapmasının 8463 adet olduğu gibi özet istatistikler çıkarılabilir. 
+
+Devamında da bu veriler ve özet istatistikler doğrultusunda tüketici tercihlerini etkileyen faktörleri ve bu faktörlerin bu tercihleri ne yönde ve şiddette etkilediği bulmak amacıyla bu veriler arasında gerekli korelasyon analizi ve hipotez testleri yapılmaya uygun hale gelmiştir.
+
+
+```{r, echo=FALSE}
 library(tidyverse)
 library(here)
 veri <- readxl::read_xlsx("C:\\Users\\pc\\Desktop\\final\\Final\\data\\veri.xlsx")
@@ -97,7 +104,7 @@ veri <- veri %>%
 
 ```
 
-Rmd dosyasında kod bloklarının bazılarında kod seçeneklerinin düzenlendiğine dikkat edin. 
+
 
 ```{r, echo=FALSE}
 library(xtable) 
@@ -106,7 +113,7 @@ library(summarytools)
 st_options(lang = "tr")
 ```
 
-`echo=FALSE` seçeneği ile kodların türetilen pdf dosyasında görünmesini engelleyin ve sonuçlarınızı tablo halinde rapor edin.
+
 
 ```{r results='asis', echo=FALSE}
 veri %>%
@@ -118,8 +125,8 @@ veri %>%
   print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
 ```
 
-
 # Yöntem ve Veri Analizi
+
 Bu bölümde veri setindeki bilgileri kullanarak çalışmanın amacına ulaşmak için kullanılacak yöntemleri açıklayın. Derste işlenen/işlenecek olan analiz yöntemlerinden (Hipotez testleri ve korelasyon analizi gibi) çalışmanın amacına ve veri setine uygun olanlar bu bölümde kullanılmalıdır. [@newbold:2003; @ozsoy:2010; @ozsoy:2014]
 
 Örneğin, regresyon analizi gerçekleştiriyorsanız tahmin ettiğiniz denklemi bu bölümde tartışınız. Denklemlerinizi ve matematiksel ifadeleri $LaTeX$ kullanarak yazınız.
@@ -130,18 +137,15 @@ $$
 
 Bu bölümde analize ilişkin farklı tablolar ve grafiklere yer verilmelidir. Çalışmanıza uygun biçimde histogram, nokta grafiği (Şekil \@ref(fig:plot) gibi), kutu grafiği, vb. grafikleri bu bölüme ekleyiniz. Şekillerinize de gerekli göndermeleri bir önceki cümlede gösterildiği gibi yapınız.
 
-
-
-
-
 # Sonuç
+
 Bu bölümde çalışmanızın sonuçlarını özetleyiniz. Sonuçlarınızın başlangıçta belirlediğiniz araştırma sorusuna ne derece cevap verdiğini ve ileride bu çalışmanın nasıl geliştirilebileceğini tartışınız.
 
-**Kaynakça bölümü Rmarkdown tarafından otomatik olarak oluşturulmaktadır. Taslak dosyada Kaynakça kısmında herhangi bir değişikliğe gerek yoktur.** 
 
-**_Taslakta bu cümleden sonra yer alan hiçbir şey silinmemelidir._**
 
 \newpage
-# Kaynakça {#references}
-<div id="refs"></div>
 
+# Kaynakça {#references}
+
+::: {#refs}
+:::
