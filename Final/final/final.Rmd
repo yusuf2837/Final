@@ -25,7 +25,7 @@ urlcolor: blue
 fontsize: 12pt
 biblio-style: apalike
 abstract: |
-  Bu bölümde çalışmanızın özetini yazınız.
+  Türkiye'de otomobil satın alma tercihlerini hangi faktörün ne derecede etkilediğini, hazırlayıp düzenlediğim veri seti üzerinden gerekli istatistiklerin özetlenmesi, gerekli grafiklerin oluşturulması ve uygun testlerin yapılmasıyla değerlendirdim.
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(cache = FALSE, echo = TRUE, message = FALSE, warning = FALSE)
@@ -83,6 +83,7 @@ Devamında da bu veriler ve özet istatistikler doğrultusunda tüketici tercihl
 ```{r, echo=FALSE}
 library(tidyverse)
 library(here)
+library(janitor)
 veri <- readxl::read_xlsx("C:\\Users\\pc\\Desktop\\final\\Final\\data\\veri.xlsx")
 
 veri <- veri %>% 
@@ -116,6 +117,9 @@ st_options(lang = "tr")
 
 
 ```{r results='asis', echo=FALSE}
+library(xtable) 
+library(summarytools)
+st_options(lang = "tr")
 veri %>%
   select("azami_hiz_km_s", "beygir_gucu_hp", "emisyon_degeri", "fiyat", "motor_hacmi_cc", "silindir_adedi", "toplam_satis_adedi", "yakit_tuketimi_lt") %>% 
   descr(stats = c("mean", "sd", "min", "med", "max"), transpose = TRUE) %>% 
@@ -123,23 +127,66 @@ veri %>%
          label = "tab:ozet",
          align = c("l", "c", "c", "c", "c", "c")) %>% 
   print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
+
 ```
 
 # Yöntem ve Veri Analizi
 
-Bu bölümde veri setindeki bilgileri kullanarak çalışmanın amacına ulaşmak için kullanılacak yöntemleri açıklayın. Derste işlenen/işlenecek olan analiz yöntemlerinden (Hipotez testleri ve korelasyon analizi gibi) çalışmanın amacına ve veri setine uygun olanlar bu bölümde kullanılmalıdır. [@newbold:2003; @ozsoy:2010; @ozsoy:2014]
+Türkiye'de otomobil satış verilerinden yararlanarak tüketici tercihlerini değerlendirdim bu çalışmamda, başlıca değişkenler olarak saptadığım fiyat, yakıt tüketimi ve motor hacmi değişkenlerinin markalar düzeyinde toplam satış adedini ne derecede etkilediğini uygun grafik yöntemleriyle şema haline getirdim. Akabinde değişkenlerin normal dağılım durumlarını değerlendirmem neticesinde uygun bulduğum yöntem olan Robust ANOVA (Kruskal–Wallis) Testini yaptım.
 
-Örneğin, regresyon analizi gerçekleştiriyorsanız tahmin ettiğiniz denklemi bu bölümde tartışınız. Denklemlerinizi ve matematiksel ifadeleri $LaTeX$ kullanarak yazınız.
+```{r, echo=FALSE}
+rstatix::kruskal_test(veri, fiyat ~ marka)
 
-$$
-Y_t = \beta_0 + \beta_N N_t + \beta_P P_t + \beta_I I_t + \varepsilon_t
-$$
+rstatix::kruskal_test(veri, yakit_tuketimi_lt ~ toplam_satis_adedi)
 
-Bu bölümde analize ilişkin farklı tablolar ve grafiklere yer verilmelidir. Çalışmanıza uygun biçimde histogram, nokta grafiği (Şekil \@ref(fig:plot) gibi), kutu grafiği, vb. grafikleri bu bölüme ekleyiniz. Şekillerinize de gerekli göndermeleri bir önceki cümlede gösterildiği gibi yapınız.
+rstatix::kruskal_test(veri, motor_hacmi_cc ~ marka)
+
+rstatix::kruskal_test(veri, motor_hacmi_cc ~ toplam_satis_adedi)
+
+rstatix::kruskal_test(veri, fiyat ~ toplam_satis_adedi)
+```
+
+
+
+```{r, echo=FALSE}
+veri %>% 
+  group_by(marka) %>% 
+  ggplot() +
+  aes(toplam_satis_adedi, marka) +
+  geom_point() +
+  stat_summary(fun = mean, geom = "point", color = "red", fill = "red") +
+  geom_vline(aes(xintercept = mean(veri$toplam_satis_adedi)), color = "red") 
+
+oneway.test(toplam_satis_adedi ~ marka, data = veri, var.equal = TRUE)
+```
+
+```{r, echo=FALSE}
+veri %>% 
+  ggplot(aes(toplam_satis_adedi , fiyat )) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+```
+
+```{r, echo=FALSE}
+veri %>%
+  ggplot() +
+  aes(x = marka, y = toplam_satis_adedi, fill = kasa_tipi) +
+  geom_jitter(shape = 18,
+              color = "red",
+              position = position_jitter(0.21)) +
+  geom_boxplot(alpha = 0.8) +
+  scale_fill_viridis_d() +
+  labs(y = "Toplam Satis Adedi", x = "Marka", fill = "Kasa Tipi") +
+  guides(fill = guide_legend(title.position = "top")) +
+  theme(legend.position = "bottom", legend.title.align = 0.5)
+
+
+```
 
 # Sonuç
 
-Bu bölümde çalışmanızın sonuçlarını özetleyiniz. Sonuçlarınızın başlangıçta belirlediğiniz araştırma sorusuna ne derece cevap verdiğini ve ileride bu çalışmanın nasıl geliştirilebileceğini tartışınız.
+Yapmış olduğum istatistiksel değerlendirmeler ve testler sonucunda Türkiye'de otomobil tüketimindeki tercihleri etkileyen faktörlerin sonucu yaklaşık olarak eşit derecede etkilediği, aralarından yakıt tüketiminin diğerlerine göre çok az bir farkla daha fazla dikkate alındığı, hangi markanın hangi kasa tipinin ve ne kadar tercih edildiğinin bilgilerine ulaştım. Otomobillerin fiyat düzeyinin satış rakamlarını açıklamada, üzerindeki etkisini araştırdığım istatististiksel verileri ve testleri göz önünde bulundurduğumda çalışmaya başlamadan önceki öznel tahminime göre çok geride kaldığı sonucuna vardım. Bu çalışmamda daha doğru ve gelişmiş testler yapabilmek için değişkenlerin dağılımlarının etkili olduğunu gördüm. Devamında veri setimin daha kapsamlı ve daha uygun bi dağılıma sahip hale gelmesiyle çok daha anlamlı sonuçlar çıkacağı ve çalışmamın amacı olan otomobil tercihlerini etkileyen faktörlerin satış adedini ne derecede etkilediği konusunda gerçeğe daha yakın sonuçların elde edileceği çıkarımına vardım.
 
 
 
